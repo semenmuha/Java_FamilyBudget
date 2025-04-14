@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-transaction-type-check
+      author: your_name
+      changes:
+        - sql:
+            sql: "ALTER TABLE transactions ADD CONSTRAINT ck_transaction_type CHECK (transaction_type IN ('DEPOSIT', 'WITHDRAWAL'))"

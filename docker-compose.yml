@@ -1,0 +1,29 @@
+services:
+  family-budget:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: family-budget-app-container
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      SERVER_PORT: 8080
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/family-budget-db
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_DB: family-budget-db
+      POSTGRES_USER: db-user
+      POSTGRES_PASSWORD: gfg
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+volumes:
+  postgres_volume:

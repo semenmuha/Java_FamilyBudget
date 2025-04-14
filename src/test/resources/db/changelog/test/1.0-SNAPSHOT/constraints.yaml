@@ -1,0 +1,76 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-users-group-fk
+      author: your_name
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: users_group
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_users_group_user
+        - addForeignKeyConstraint:
+            baseTableName: users_group
+            baseColumnNames: group_id
+            referencedTableName: groups
+            referencedColumnNames: id
+            constraintName: fk_users_group_group
+        - addUniqueConstraint:
+            tableName: users_group
+            columnNames: user_id, group_id
+            constraintName: uk_user_group
+
+  - changeSet:
+      id: add-groups-creator-fk
+      author: your_name
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: groups
+            baseColumnNames: creator_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_group_creator
+
+  - changeSet:
+      id: add-accounts-group-fk
+      author: your_name
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: accounts
+            baseColumnNames: group_id
+            referencedTableName: groups
+            referencedColumnNames: id
+            constraintName: fk_account_group
+
+  - changeSet:
+      id: add-transactions-account-fk
+      author: your_name
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: transactions
+            baseColumnNames: account_id
+            referencedTableName: accounts
+            referencedColumnNames: id
+            constraintName: fk_transaction_account
+
+  - changeSet:
+      id: add-transaction-type-check
+      author: your_name
+      changes:
+        - addCheckConstraint:
+            tableName: transactions
+            columnName: transaction_type
+            constraintName: ck_transaction_type
+            constraintBody: "transaction_type IN ('DEPOSIT', 'WITHDRAWAL')"
+
+  - changeSet:
+      id: add-transactions-date-index
+      author: your_name
+      changes:
+        - createIndex:
+            indexName: idx_transaction_date
+            tableName: transactions
+            columns:
+              - column:
+                  name: date_of_transaction
+                  descending: true

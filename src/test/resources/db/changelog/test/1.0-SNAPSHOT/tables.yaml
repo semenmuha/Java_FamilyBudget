@@ -1,0 +1,150 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-users-table
+      author: your_name
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: login
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: email
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: name
+                  type: varchar(100)
+              - column:
+                  name: date_of_registration
+                  type: date
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: create-groups-table
+      author: your_name
+      changes:
+        - createTable:
+            tableName: groups
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: creator_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: date_of_creation
+                  type: date
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: create-accounts-table
+      author: your_name
+      changes:
+        - createTable:
+            tableName: accounts
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: group_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: balance
+                  type: decimal(19,2)
+                  constraints:
+                    nullable: false
+                    defaultValue: "0"
+
+  - changeSet:
+      id: create-transactions-table
+      author: your_name
+      changes:
+        - createTable:
+            tableName: transactions
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: account_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: transaction_money
+                  type: decimal(19,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: transaction_type
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: date_of_transaction
+                  type: timestamp
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: create-users-group-join-table
+      author: your_name
+      changes:
+        - createTable:
+            tableName: users_group
+            columns:
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: group_id
+                  type: bigint
+                  constraints:
+                    nullable: false

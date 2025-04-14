@@ -1,0 +1,56 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-test-users
+      author: your_name
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: login
+                  value: "admin"
+              - column:
+                  name: email
+                  value: "admin@example.com"
+              - column:
+                  name: name
+                  value: "Admin User"
+              - column:
+                  name: date_of_registration
+                  valueDate: "2023-01-01"
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: login
+                  value: "user1"
+              - column:
+                  name: email
+                  value: "user1@example.com"
+              - column:
+                  name: name
+                  value: "Regular User 1"
+              - column:
+                  name: date_of_registration
+                  valueDate: "2023-01-02"
+
+  - changeSet:
+      id: insert-test-group
+      author: your_name
+      changes:
+        - insert:
+            tableName: groups
+            columns:
+              - column:
+                  name: name
+                  value: "Test Group"
+              - column:
+                  name: creator_id
+                  valueNumeric: 1
+              - column:
+                  name: date_of_creation
+                  valueDate: "2023-01-03"
+        - sql:
+            sql: "INSERT INTO users_group (user_id, group_id) VALUES (1, 1), (2, 1)"
+        - sql:
+            sql: "INSERT INTO accounts (group_id, balance) VALUES (1, 1000.00)"
